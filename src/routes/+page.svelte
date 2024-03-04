@@ -1,1 +1,6 @@
-<h1>Emoji Matching Game</h1>
+<script>
+  import Game from "../components/Game.svelte";
+  import "../styles.css";
+</script>
+
+<Game />
