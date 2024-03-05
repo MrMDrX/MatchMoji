@@ -22,6 +22,8 @@
     font-size: 8em;
     width: 1em;
     height: 1em;
+    background: transparent;
+    border: none;
   }
   svg {
     position: absolute;
