@@ -1,20 +1,33 @@
 <script lang="ts">
   import Grid from "./Grid.svelte";
-  import { levels } from "$lib/levels";
   import type { Level } from "$lib/levels";
   import { shuffle } from "$lib/utils";
   import Found from "./Found.svelte";
   import Countdown from "./Countdown.svelte";
-  import { onMount } from "svelte";
+  import { createEventDispatcher } from "svelte";
 
-  const level = levels[0];
+  const dispatch = createEventDispatcher();
 
-  let size: number = level.size;
-  let grid: string[] = createGrid(level);
+  let size: number;
+  let grid: string[] = [];
   let found: string[] = [];
-  let remaining: number = level.duration;
-  let duration: number = level.duration;
+  let remaining: number = 0;
+  let duration: number = 0;
   let playing: boolean = false;
+
+  export function start(level: Level) {
+    size = level.size;
+    grid = createGrid(level);
+    remaining = duration = level.duration;
+
+    resume();
+  }
+
+  function resume() {
+    playing = true;
+    countdown();
+    dispatch("play");
+  }
 
   function createGrid(level: Level) {
     const copy = level.emojis.slice();
@@ -34,25 +47,32 @@
     const start = Date.now();
     let remainingAtStart = remaining;
     function loop() {
-      if (playing) return;
+      if (!playing) return;
       requestAnimationFrame(loop);
 
       remaining = remainingAtStart - (Date.now() - start);
       if (remaining <= 0) {
-        // Game Over
+        dispatch("lose");
         playing = false;
       }
     }
 
     loop();
   }
-
-  onMount(countdown);
 </script>
 
-<div class="game">
+<div class="game" style="--size: {size}">
   <div class="info">
-    <Countdown {remaining} duration={level.duration} />
+    {#if playing}
+      <Countdown
+        {remaining}
+        {duration}
+        on:click={() => {
+          playing = false;
+          dispatch("pause");
+        }}
+      />
+    {/if}
   </div>
 
   <div class="grid-container">
@@ -60,6 +80,9 @@
       {grid}
       on:found={(e) => {
         found = [...found, e.detail.emoji];
+        if (found.length === (size * size) / 2) {
+          dispatch("win");
+        }
       }}
       {found}
     />
