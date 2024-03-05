@@ -1,9 +1,11 @@
 <script lang="ts">
   import { getTwemoji } from "$lib/utils";
+  import { send } from "$lib/transitions";
 
   export let emoji: string;
   export let selected: boolean;
   export let found: boolean;
+  export let group: "m" | "n";
 </script>
 
 <div class="square" class:flipped={selected || found}>
@@ -12,7 +14,7 @@
   <div class="background" />
 
   {#if !found}
-    <img src={getTwemoji(emoji)} alt={emoji} />
+    <img out:send={{ key: `${emoji}:${group}` }} src={getTwemoji(emoji)} alt={emoji} />
   {/if}
 </div>
 

@@ -36,6 +36,7 @@
       }}
       selected={m === i || n === i}
       found={found.includes(emoji)}
+      group={grid.indexOf(emoji) === i ? "m" : "n"}
     />
   {/each}
 </div>
