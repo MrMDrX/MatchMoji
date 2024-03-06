@@ -17,30 +17,27 @@
 
   export function start(level: Level) {
     size = level.size;
-    grid = createGrid(level);
     remaining = duration = level.duration;
+
+    const sliced = level.emojis.slice();
+    const pairs: string[] = [];
+
+    for (let i = 0; i < (size * size) / 2; i += 1) {
+      const index = Math.floor(Math.random() * sliced.length);
+      const emoji = sliced[index];
+      sliced.splice(index, 1);
+      pairs.push(emoji);
+    }
+
+    grid = shuffle([...pairs, ...pairs]);
+    found = [];
 
     resume();
   }
-
   export function resume() {
     playing = true;
     countdown();
     dispatch("play");
-  }
-
-  function createGrid(level: Level) {
-    const copy = level.emojis.slice();
-    const pairs: string[] = [];
-
-    for (let i = 0; i < level.size ** 2 / 2; i++) {
-      const idx = Math.floor(Math.random() * copy.length);
-      const emoji = copy[idx];
-      copy.splice(idx, 1);
-      pairs.push(emoji);
-    }
-    pairs.push(...pairs);
-    return shuffle(pairs);
   }
 
   function countdown() {

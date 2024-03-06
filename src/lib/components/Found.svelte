@@ -6,7 +6,7 @@
 </script>
 
 <div class="found">
-  {#each found as emoji}
+  {#each found as emoji (emoji)}
     <div class="pair">
       <img in:receive={{ key: `${emoji}:m` }} src={getTwemoji(emoji)} alt={emoji} />
       <img in:receive={{ key: `${emoji}:n` }} src={getTwemoji(emoji)} alt={emoji} />
