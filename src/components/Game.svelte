@@ -23,7 +23,7 @@
     resume();
   }
 
-  function resume() {
+  export function resume() {
     playing = true;
     countdown();
     dispatch("play");
@@ -48,12 +48,13 @@
     let remainingAtStart = remaining;
     function loop() {
       if (!playing) return;
+
       requestAnimationFrame(loop);
 
       remaining = remainingAtStart - (Date.now() - start);
       if (remaining <= 0) {
-        dispatch("lose");
         playing = false;
+        dispatch("lose");
       }
     }
 
@@ -76,16 +77,22 @@
   </div>
 
   <div class="grid-container">
-    <Grid
-      {grid}
-      on:found={(e) => {
-        found = [...found, e.detail.emoji];
-        if (found.length === (size * size) / 2) {
-          dispatch("win");
-        }
-      }}
-      {found}
-    />
+    {#key grid}
+      <Grid
+        {grid}
+        on:found={(e) => {
+          found = [...found, e.detail.emoji];
+          if (found.length === (size * size) / 2) {
+            playing = false;
+            setTimeout(() => {
+              playing = false;
+              dispatch("win");
+            }, 1000);
+          }
+        }}
+        {found}
+      />
+    {/key}
   </div>
   <div class="info"><Found {found} /></div>
 </div>
@@ -96,8 +103,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2em;
     height: 100%;
-    font-size: min(1vmin, 0.3rem);
+    font-size: min(1vmin, 0.3em);
   }
 
   .info {

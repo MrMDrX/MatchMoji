@@ -15,32 +15,34 @@
 <style>
   .countdown {
     display: flex;
-    align-items: center;
     gap: 1em;
-  }
-  button {
-    font-size: 8em;
-    width: 1em;
-    height: 1em;
-    background: transparent;
-    border: none;
-  }
-  svg {
-    position: absolute;
+    align-items: center;
+    justify-content: end;
     width: 100%;
     height: 100%;
-    left: 0;
-    top: 0;
+  }
+  button {
+    font-size: max(8em, 2.4rem);
+    width: 1em;
+    aspect-ratio: 1;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  button svg {
+    display: block;
   }
   .duration {
-    flex: 1;
-    height: 1em;
-    background: #999;
+    inline-size: 100%;
+    block-size: 1em;
+    background: var(--bg-2);
+    border-radius: 1em;
+    overflow: hidden;
   }
   .remaining {
     position: absolute;
-    width: calc(100% * var(--p));
-    height: 100%;
-    background: yellow;
+    inline-size: calc(100% * var(--p));
+    block-size: 100%;
+    background: var(--bg-3);
   }
 </style>

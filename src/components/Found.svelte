@@ -17,25 +17,29 @@
 <style>
   .found {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 0.5em;
-    height: 100%;
-    filter: drop-shadow(0.2em 0.2em 0.5em rgba(0, 0, 0, 0.4));
-  }
-  img {
-    position: absolute;
-    height: 6em;
-    width: 6em;
+    z-index: 3;
+    filter: drop-shadow(0.2em 0.4em 0.6em rgba(0, 0, 0, 0.4));
   }
   .pair {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 12em;
-    width: 12em;
-    background: white;
-    padding: 1em;
+    justify-content: center;
+    font-size: max(2.5em, calc(80em / (var(--size) * var(--size))));
+    width: 2em;
+    aspect-ratio: 1;
+    background: var(--bg-1);
     border-radius: 50%;
+  }
+
+  img {
+    display: block;
+    position: absolute;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1;
   }
 </style>
