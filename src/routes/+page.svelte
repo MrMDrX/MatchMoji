@@ -1,7 +1,7 @@
 <script lang="ts">
   import { levels } from "$lib/levels";
-  import Game from "../components/Game.svelte";
-  import Modal from "../components/Modal.svelte";
+  import Game from "$lib/components/Game.svelte";
+  import Modal from "$lib/components/Modal.svelte";
   import "../styles.css";
   import { confetti } from "@neoconfetti/svelte";
 
@@ -10,7 +10,8 @@
 </script>
 
 <svelte:head>
-  <title>Emoji Matching Game</title>
+  <title>MatchMoji</title>
+  <meta name="description" content="the emoji matching game" />
 </svelte:head>
 
 <main>
@@ -33,7 +34,8 @@
   {#if state !== "playing"}
     <Modal>
       <header>
-        <h1>Emoji Matching Game</h1>
+        <h1>MatchMoji</h1>
+        <p>The Emoji Matching Game</p>
       </header>
 
       {#if state === "won" || state === "lost"}
@@ -130,6 +132,7 @@
     color: white;
     font-size: inherit;
     font-family: inherit;
+    font-weight: 600;
     border: none;
     padding: 1em;
     border-radius: 0.5em;

@@ -45,7 +45,7 @@
   }
   img {
     display: block;
-    font-size: 6em;
+    font-size: 10em;
     width: 1em;
     height: 1em;
     line-height: 1;
