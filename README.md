@@ -4,7 +4,7 @@ Awesome and Fun Emoji matching game built with Svelte and TypeScript.
 
 ## Live Demo
 
-🚀 Try the game live 👉 [here](https://match-moji.vercel.app/).
+🚀 Try the game live here 👉 [MatchMoji](https://match-moji.vercel.app/).
 
 ## Features
 
